@@ -109,7 +109,8 @@ table.matrix { border-collapse: collapse; min-width: 100%; }
 
 /* Preview */
 .controls-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
-.field { display: grid; gap: 4px; }
+.field { display: grid; gap: 4px; min-width: 0; }
+.field input[type=text] { width: 100%; min-width: 0; }
 .sel-pair { display: flex; gap: 8px; align-items: center; }
 .sel-pair .mini-sw { width: 32px; height: 32px; }
 .sel-pair select { flex: 1; min-width: 0; }
