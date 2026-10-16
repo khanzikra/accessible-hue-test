@@ -164,6 +164,45 @@ table.tests { width: 100%; border-collapse: collapse; font-size: 14.5px; margin-
 footer { text-align: center; color: var(--muted); padding: 0 16px 30px; font-size: 15px; }
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; scroll-behavior: auto !important; } }
+
+/* =====================================================================
+   INTRO SPLASH — animated opening page with heading + quotations
+   ===================================================================== */
+#intro { position: fixed; inset: 0; z-index: 9999; background: var(--bg);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 28px; text-align: center; padding: 24px; overflow: hidden; cursor: pointer; }
+#intro.leave { opacity: 0; transform: scale(1.04); transition: opacity .7s ease, transform .7s ease; pointer-events: none; }
+#intro .orbs { position: absolute; inset: 0; pointer-events: none; }
+#intro .orbs i { position: absolute; border-radius: 50%; filter: blur(60px); opacity: .35;
+  animation: orb 9s ease-in-out infinite alternate; }
+#intro .orbs i:nth-child(1) { width: 340px; height: 340px; background: var(--cyan); top: -80px; left: -60px; }
+#intro .orbs i:nth-child(2) { width: 300px; height: 300px; background: var(--violet); bottom: -70px; right: -40px; animation-delay: -3s; }
+#intro .orbs i:nth-child(3) { width: 240px; height: 240px; background: var(--mint); top: 45%; left: 60%; animation-delay: -6s; }
+@keyframes orb { from { transform: translate(0,0) scale(1); } to { transform: translate(-50px,40px) scale(1.25); } }
+#intro .in { position: relative; display: grid; gap: 22px; justify-items: center; }
+#intro h1 { margin: 0; font-size: clamp(30px, 6vw, 58px); letter-spacing: .12em;
+  background: linear-gradient(90deg, var(--cyan), var(--violet) 55%, var(--mint));
+  -webkit-background-clip: text; background-clip: text; color: transparent; }
+#intro h1 span { display: inline-block; opacity: 0; transform: translateY(26px);
+  animation: rise .7s cubic-bezier(.2,.7,.2,1) forwards; }
+@keyframes rise { to { opacity: 1; transform: none; } }
+#intro .motto { margin: 0; color: var(--muted); font-size: clamp(16px, 2.4vw, 20px); letter-spacing: .04em;
+  opacity: 0; animation: rise .8s .9s ease forwards; }
+#intro .quote { margin: 0; max-width: 640px; min-height: 5.2em; display: grid; align-content: center; gap: 8px; }
+#intro .quote blockquote { margin: 0; font-size: clamp(17px, 2.6vw, 22px); font-style: italic; color: var(--text);
+  opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+#intro .quote cite { font-style: normal; font-size: 15px; color: var(--cyan);
+  opacity: 0; transition: opacity .6s ease .2s; }
+#intro .quote.show blockquote, #intro .quote.show cite { opacity: 1; transform: none; }
+#intro .enter { position: relative; opacity: 0; animation: rise .7s 1.4s ease forwards; }
+#intro .hint { position: relative; margin: 0; color: var(--muted); font-size: 14px; opacity: 0; animation: rise .7s 1.8s ease forwards; }
+#intro .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--border); margin: 0 3px; }
+#intro .dot.on { background: var(--cyan); }
+@media (prefers-reduced-motion: reduce) {
+  #intro .orbs i { animation: none; }
+  #intro h1 span, #intro .motto, #intro .enter, #intro .hint { animation: none; opacity: 1; transform: none; }
+  #intro .quote blockquote, #intro .quote cite { transition: none; }
+}
 </style>
 </head>
 <body>
