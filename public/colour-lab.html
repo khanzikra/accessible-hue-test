@@ -206,6 +206,22 @@ footer { text-align: center; color: var(--muted); padding: 0 16px 30px; font-siz
 </style>
 </head>
 <body>
+
+<!-- Animated intro splash: heading + rotating quotations. Dismissed by
+     click, Enter button, Escape, or auto-timeout; honours reduced motion. -->
+<div id="intro" role="dialog" aria-label="Welcome to Accessibility Colour Lab">
+  <div class="orbs" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="in">
+    <h1 id="intro-title" aria-label="Accessibility Colour Lab"></h1>
+    <p class="motto">Design for everyone. Test every colour.</p>
+    <div class="quote" aria-live="polite">
+      <blockquote id="intro-quote"></blockquote>
+      <cite id="intro-cite"></cite>
+    </div>
+    <button class="primary enter" id="intro-enter" type="button">Enter the Lab</button>
+    <p class="hint"><span class="dot on" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span></p>
+  </div>
+</div>
 <a href="#main" class="skip">Skip to main content</a>
 
 <!-- Hidden SVG with colour-vision filters (Machado, Oliveira & Fernandes 2009, severity 1.0).
