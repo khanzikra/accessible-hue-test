@@ -1012,6 +1012,50 @@ function runSelfTests() {
 }
 $("btn-run-tests").addEventListener("click", runSelfTests);
 
+/* Intro splash logic */
+(function () {
+  var intro = $("intro"), title = $("intro-title"), qEl = $("intro-quote"),
+      cEl = $("intro-cite"), dots = intro.querySelectorAll(".dot");
+  "ACCESSIBILITY COLOUR LAB".split("").forEach(function (ch, i) {
+    var s = document.createElement("span");
+    s.textContent = ch === " " ? "\u00A0" : ch;
+    s.style.animationDelay = (0.25 + i * 0.045) + "s";
+    title.appendChild(s);
+  });
+  var QUOTES = [
+    ["The power of the Web is in its universality. Access by everyone regardless of disability is an essential aspect.", "Tim Berners-Lee, inventor of the Web"],
+    ["Colour does not add a pleasant quality to design — it reinforces it.", "Pierre Bonnard, painter"],
+    ["Colours are the smiles of nature — make sure everyone can see them.", "Colour Lab"],
+    ["Design for everyone. Test every colour.", "Colour Lab motto"]
+  ];
+  var qi = 0, timer = null, closed = false;
+  function showQuote() {
+    var q = QUOTES[qi % QUOTES.length];
+    qEl.textContent = "“" + q[0] + "”";
+    cEl.textContent = "— " + q[1];
+    var box = qEl.parentElement;
+    box.classList.remove("show");
+    void box.offsetWidth; /* restart the fade */
+    box.classList.add("show");
+    dots.forEach(function (d, i) { d.classList.toggle("on", i === qi % QUOTES.length); });
+    qi++;
+  }
+  function close() {
+    if (closed) return; closed = true;
+    clearInterval(timer);
+    intro.classList.add("leave");
+    document.body.classList.remove("intro-lock");
+    setTimeout(function () { intro.remove(); }, 750);
+  }
+  showQuote();
+  timer = setInterval(showQuote, 2800);
+  intro.addEventListener("click", close);
+  $("intro-enter").addEventListener("click", close);
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !closed) close(); });
+  var motionless = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  setTimeout(close, motionless ? 4000 : 11200);
+})();
+
 /* Initialization */
 renderPresets();
 renderGenerator();
